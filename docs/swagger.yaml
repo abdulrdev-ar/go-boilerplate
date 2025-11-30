@@ -1,0 +1,73 @@
+basePath: /
+definitions:
+  user.CreateUserDTO:
+    properties:
+      email:
+        type: string
+      name:
+        minLength: 5
+        type: string
+      password:
+        minLength: 8
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Example API with Gin, GORM, Clean Architecture
+  title: MyApp API
+  version: "1.0"
+paths:
+  /users:
+    get:
+      parameters:
+      - description: offset
+        in: query
+        name: offset
+        type: integer
+      - description: limit
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: List users
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: create a user
+      parameters:
+      - description: User body
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.CreateUserDTO'
+      produces:
+      - application/json
+      responses: {}
+      summary: Create user
+      tags:
+      - users
+  /users/{id}:
+    get:
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Get user by id
+      tags:
+      - users
+swagger: "2.0"

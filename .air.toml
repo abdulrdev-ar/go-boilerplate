@@ -1,0 +1,20 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "swag init -g ./cmd/api/main.go -o ./docs; go build -o ./tmp/main.exe ./cmd/api"
+  bin = "tmp/main.exe"
+  include_ext = ["go", "tpl", "tmpl", "sql"]
+  exclude_dir = ["assets", "tmp", "migrations", "docs"]
+  include_dir = []
+  delay = 1000 # ms
+
+[log]
+  time = true
+
+[misc]
+  clean_on_exit = false
+
+[screen]
+  clear_on_rebuild = false
+  keep_scroll = true

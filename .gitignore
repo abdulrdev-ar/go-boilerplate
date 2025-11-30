@@ -1,0 +1,19 @@
+/tmp
+
+*.env
+!.env.example
+
+# System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.idea
+.vscode
+
+*.sum
