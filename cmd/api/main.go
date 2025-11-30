@@ -19,10 +19,7 @@ import (
 // @host localhost:8080
 // @BasePath /
 func main() {
-	cfg, err := config.Load()
-	if err != nil {
-		log.Fatal(err)
-	}
+	cfg := config.Load()
 
 	db, err := gorm.Open(postgres.Open(cfg.DSN()), &gorm.Config{})
 	if err != nil {
