@@ -28,6 +28,7 @@ func InitUserController(svc *UserService) *UserController {
 // @Produce json
 // @Param user body CreateUserDTO true "User body"
 // @Router /users [post]
+// @Security Bearer
 func (uc *UserController) CreateUser(c *gin.Context) {
 	var req CreateUserDTO
 
@@ -62,6 +63,7 @@ func (uc *UserController) CreateUser(c *gin.Context) {
 // @Produce json
 // @Param id path int true "User ID"
 // @Router /users/{id} [get]
+// @Security Bearer
 func (uc *UserController) GetUser(c *gin.Context) {
 	idParam := c.Param("id")
 	id, _ := strconv.Atoi(idParam)
@@ -81,6 +83,7 @@ func (uc *UserController) GetUser(c *gin.Context) {
 // @Param offset query int false "offset"
 // @Param limit query int false "limit"
 // @Router /users [get]
+// @Security Bearer
 func (uc *UserController) ListUsers(c *gin.Context) {
 	page, _ := strconv.Atoi(c.DefaultQuery("page", "0"))
 	limit, _ := strconv.Atoi(c.DefaultQuery("limit", "10"))

@@ -50,6 +50,16 @@ paths:
       summary: Login user
       tags:
       - Authentication
+  /profile:
+    get:
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - Bearer: []
+      summary: Get profile
+      tags:
+      - profile
   /users:
     get:
       parameters:
@@ -64,6 +74,8 @@ paths:
       produces:
       - application/json
       responses: {}
+      security:
+      - Bearer: []
       summary: List users
       tags:
       - users
@@ -81,6 +93,8 @@ paths:
       produces:
       - application/json
       responses: {}
+      security:
+      - Bearer: []
       summary: Create user
       tags:
       - users
@@ -95,7 +109,15 @@ paths:
       produces:
       - application/json
       responses: {}
+      security:
+      - Bearer: []
       summary: Get user by id
       tags:
       - users
+securityDefinitions:
+  Bearer:
+    description: Type "Bearer" followed by a space and then your token.
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

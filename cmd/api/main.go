@@ -9,7 +9,7 @@ import (
 
 	_ "github.com/inienam06/go-boilerplate/docs" // swag docs
 	"github.com/inienam06/go-boilerplate/internal/config"
-	"github.com/inienam06/go-boilerplate/internal/middleware"
+	"github.com/inienam06/go-boilerplate/internal/core/middleware"
 	"github.com/inienam06/go-boilerplate/internal/model"
 )
 
@@ -18,6 +18,10 @@ import (
 // @description Example API with Gin, GORM, Clean Architecture
 // @host localhost:8080
 // @BasePath /
+// @securityDefinitions.apikey Bearer
+// @in header
+// @name Authorization
+// @description Type "Bearer" followed by a space and then your token.
 func main() {
 	cfg := config.Load()
 
@@ -33,6 +37,7 @@ func main() {
 
 	r := gin.Default()
 	r.Use(middleware.ErrorHandling())
+
 	config.RegisterRoutes(r, db)
 
 	if err := r.Run(":" + cfg.Port); err != nil {

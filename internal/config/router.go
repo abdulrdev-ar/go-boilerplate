@@ -2,7 +2,9 @@ package config
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/inienam06/go-boilerplate/internal/core/middleware"
 	"github.com/inienam06/go-boilerplate/internal/modules/authentication"
+	"github.com/inienam06/go-boilerplate/internal/modules/profile"
 	"github.com/inienam06/go-boilerplate/internal/modules/user"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -18,6 +20,9 @@ func RegisterRoutes(r *gin.Engine, db *gorm.DB) {
 	authService := authentication.InitAuthenticationService(userRepo)
 	authController := authentication.InitAuthenticationController(authService)
 
+	profileService := profile.NewProfileService(userRepo)
+	profileController := profile.InitProfileController(profileService)
+
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	auth := r.Group("/auth")
@@ -26,9 +31,16 @@ func RegisterRoutes(r *gin.Engine, db *gorm.DB) {
 	}
 
 	users := r.Group("/users")
+	users.Use(middleware.AuthMiddleware())
 	{
 		users.POST("", userController.CreateUser)
 		users.GET("", userController.ListUsers)
 		users.GET("/:id", userController.GetUser)
+	}
+
+	profile := r.Group("/profile")
+	profile.Use(middleware.AuthMiddleware())
+	{
+		profile.GET("", profileController.GetProfile)
 	}
 }

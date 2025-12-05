@@ -36,7 +36,7 @@ func (r *UserRepository) Create(user *model.User) (*model.User, error) {
 
 func (r *UserRepository) GetByID(id uint) (*model.User, error) {
 	var u model.User
-	if err := r.db.First(&u, id).Error; err != nil {
+	if err := r.db.Select("id", "name", "email", "created_at", "updated_at").First(&u, id).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, nil
 		}
